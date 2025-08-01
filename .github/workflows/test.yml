@@ -10,28 +10,20 @@ permissions:
   pull-requests: write # Optional if dealing with PRs
 
 jobs:
-  rebase:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up Git
+      - name: Commit build to production branch
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-
-      - name: Fetch all branches
-        run: git fetch --all
-
-      - name: Checkout production branch
-        run: git checkout production
-
-      - name: Rebase main onto production
-        run: |
-          # Rebase the production branch with the latest changes from main
-          git rebase origin/production
-
-      - name: Push changes to production branch
-        run: git push origin production --force-with-lease
+          git checkout -b production
+          git add .  # 빌드 결과물
+          git commit -m "Deploy build to production"
+          git push origin production --force  # force push로 강제로 푸시
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
