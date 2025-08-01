@@ -1,3 +1,0 @@
-name = "jakpago-proxy"
-main = "build/worker/shim.mjs"
-compatibility_date = "2025-08-01"
