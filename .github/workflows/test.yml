@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write # Repositories contents access (for push)
+  pull-requests: write # Optional if dealing with PRs
+
 jobs:
   rebase:
     runs-on: ubuntu-latest
