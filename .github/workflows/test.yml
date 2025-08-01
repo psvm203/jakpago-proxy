@@ -1,0 +1,31 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Fetch
+        run: git fetch --all
+
+      - name: Checkout production branch
+        run: git checkout production
+
+      - name: Merge main into production
+        run: git merge main --no-ff --commit
+
+      - name: Push changes to production branch
+        run: git push origin production
