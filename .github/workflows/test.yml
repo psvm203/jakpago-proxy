@@ -27,7 +27,7 @@ jobs:
       - name: Rebase main onto production
         run: |
           # Rebase the production branch with the latest changes from main
-          git rebase origin/main
+          git rebase origin/production
 
       - name: Push changes to production branch
         run: git push origin production --force-with-lease
